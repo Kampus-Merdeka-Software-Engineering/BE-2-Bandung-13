@@ -18,15 +18,6 @@ app.get("/rooms", async (req, res) => {
   res.status(200).send(room);
 });
 
-app.get("/rooms/:id", async (req, res) => {
-  const room = await prisma.room.findUnique({
-    where: {
-      id: parseInt(req.params.id),
-    },
-  });
-  res.status(200).send(room);
-});
-
 app.all("*", async (req, res) => {
   res.json({
     message: "Routes you're looking is not found",

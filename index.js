@@ -1,54 +1,47 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const { prisma } = require("./config/prisma");
+const { roomRoutes } = require("./routes/room.routes");
+// const { productRoutes } = require("./routes/product.routes");
+// const { messageRoutes } = require("./routes/message.routes");
+const { authRoutes } = require("./routes/auth.routes");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+//middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", async (req, res) => {
-  res.send("here is the response");
+    res.send("here is the response");
 });
 
-app.get("/rooms", async (req, res) => {
-  const room = await prisma.room.findMany();
-  res.status(200).send(room);
-});
+// room routes
+app.use("/room", roomRoutes);
 
-app.get("/reservations", async (req, res) => {
-  const reservations = await prisma.reservations.findMany();
-  res.status(200).send(reservations);
-});
+// // products routes
+// app.use("/products", productRoutes);
 
-app.post("/rooms", async (req, res) => {
-  const { room } = req.body;
-  if (!room) res.status(400).json({ message: "Name is required" });
-  const newRoom = await prisma.room.create({
-    data: {
-      name: room,
-      room_number: 1,
-      room_type: 1,
-      number_of_guests: 1,
-      harga: 500000,
-      room_desc: 1,
-      img: 1,
-    },
-  });
-  res.status(201).json({
-    message: "Room created",
-    data: newRoom,
-  });
-});
+// // messages routes
+// app.use("/messages", messageRoutes);
+
+// auth & registration routes
+app.use('/auth', authRoutes);
 
 app.all("*", async (req, res) => {
-  res.json({
-    message: "Routes you're looking is not found",
-  });
+    res.json({
+        message: "Routes you're looking is not found",
+    });
 });
 
+app.use((err, req, res, next) => {
+    res.status(err.status || 500).json({
+        status: false,
+        message: err.message
+    })
+})
+
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(`Server is already running at ${PORT}`);
+    console.log(`Server is already running at ${PORT}`);
 });

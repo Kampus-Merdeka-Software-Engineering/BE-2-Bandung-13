@@ -10,30 +10,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Reservations {
-  id_reservations Int @id @default(autoincrement())
-  id_user Int
-  room_number Int
-  check_in DateTime @default(now())
-  check_out DateTime @default(now())
-  adults Int
-  children Int
-  room Int
-  room_type String
-}
-
 model Room {
-  id_room Int @id @default(autoincrement())
-  room_number Int @unique
-  room_type String
-  number_of_guests Int
-  harga Decimal
-  room_desc String
-  img String
+  id        Int      @id @default(autoincrement())
+  roomType  String
+  price     Int
+  imageUrl  String? // arti ?, not required, kalau pengen dibikin gapapa deh kalau datanya kosong
+  description String
+  capasity  Int 
 }
 
 model User {
-  id_user Int @id  @default(autoincrement())
-  username String @unique
-  password String
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  name     String?
+  password String?
 }
+

@@ -8,19 +8,19 @@ roomRoutes.get("/", async (req, res) => {
 	res.status(200).send(room);
 });
 
-// get room by id
-roomRoutes.get("/:id", async (req, res) => {
-	const room = await prisma.room.findUnique({
-		where: {
-			id: parseInt(req.params.id),
-		},
-	});
-	if (!room)
-		res.status(404).json({
-			message: "room not found",
-		});
-	else res.status(200).json(room);
-});
+// // get room by roomType
+// roomRoutes.get("/:roomType", async (req, res) => {
+// 	const room = await prisma.room.findUnique({
+// 		where: {
+// 			roomType: parseInt(req.params.roomType),
+// 		},
+// 	});
+// 	if (!room)
+// 		res.status(404).json({
+// 			message: "room not found",
+// 		});
+// 	else res.status(200).json(room);
+// });
 
 // create room
 roomRoutes.post("/", async (req, res) => {

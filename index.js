@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const { roomRoutes } = require("./routes/room.routes");
-// const { productRoutes } = require("./routes/product.routes");
+const { bookRoutes } = require("./routes/booking.routes");
 // const { messageRoutes } = require("./routes/message.routes");
 const { authRoutes } = require("./routes/auth.routes");
 const app = express();
@@ -20,8 +20,8 @@ app.get("/", async (req, res) => {
 // room routes
 app.use("/room", roomRoutes);
 
-// // products routes
-// app.use("/products", productRoutes);
+//booking routes
+app.use("/booking", bookRoutes);
 
 // // messages routes
 // app.use("/messages", messageRoutes);

@@ -16,7 +16,8 @@ model Room {
   price     Int
   imageUrl  String? // arti ?, not required, kalau pengen dibikin gapapa deh kalau datanya kosong
   description String
-  capasity  Int 
+  capacityAdult  Int?
+  capacityChild  Int?
 }
 
 model User {
@@ -26,3 +27,13 @@ model User {
   password String?
 }
 
+model Booking {
+  id        Int      @id @default(autoincrement())
+  email    String
+  name     String?
+  roomType String
+  checkIn  DateTime
+  checkOut DateTime
+  adult    Int?
+  child    Int?
+}

@@ -25,10 +25,11 @@ model User {
   email    String  @unique
   name     String?
   password String?
+  books    Book[]
 }
 
-model Booking {
-  id        Int      @id @default(autoincrement())
+model Book {
+  id       Int      @id @default(autoincrement())
   email    String
   name     String?
   roomType String
@@ -36,4 +37,6 @@ model Booking {
   checkOut DateTime
   adult    Int?
   child    Int?
+  userId   Int?
+  User     User? @relation(fields: [userId], references: [id])
 }

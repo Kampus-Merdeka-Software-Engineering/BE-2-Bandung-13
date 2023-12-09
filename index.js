@@ -2,8 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const { roomRoutes } = require("./routes/room.routes");
-const { bookRoutes } = require("./routes/booking.routes");
-// const { messageRoutes } = require("./routes/message.routes");
+const { bookRoutes } = require("./routes/book.routes");
 const { authRoutes } = require("./routes/auth.routes");
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -21,10 +20,7 @@ app.get("/", async (req, res) => {
 app.use("/room", roomRoutes);
 
 //booking routes
-app.use("/booking", bookRoutes);
-
-// // messages routes
-// app.use("/messages", messageRoutes);
+app.use("/book", bookRoutes);
 
 // auth & registration routes
 app.use('/auth', authRoutes);
